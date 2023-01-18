@@ -1,12 +1,13 @@
 const { ethers } = require("hardhat");
 
-async function aloowenceMax() {
+async function alowenceMax() {
+    const staking = await ethers.getContract("StakingMech");
     const token = await ethers.getContract("Token");
-    await token.increaseAllowance();
+    await token.approve(staking.address, 100);
     console.log("Approved!");
 }
 
-aloowenceMax()
+alowenceMax()
     .then(() => process.exit(0))
     .catch((error) => {
         console.error(error);

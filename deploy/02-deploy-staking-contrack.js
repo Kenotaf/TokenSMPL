@@ -28,7 +28,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     }
     log("Interact with token using command:");
     const networkName = network.name == "hardhat" ? "localhost" : network.name;
-    log(`yarn hardhat run scripts/token.js --network ${networkName}`);
+    log(`yarn hardhat run scripts/interact.js --network ${networkName}`);
     log("----------------------------------------------------");
 };
 

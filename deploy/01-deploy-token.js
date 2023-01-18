@@ -1,4 +1,4 @@
-const { network, ethers } = require("hardhat");
+//const { network, ethers } = require("hardhat");
 const {
     networkConfig,
     developmentChains,
@@ -13,17 +13,19 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         ? 1
         : VERIFICATION_BLOCK_CONFIRMATIONS;
     log("----------------------------------------------------");
-
+    console.log("deploer === ", deployer);
     const arguments = [];
+
     const token = await deploy("Token", {
         from: deployer,
         log: true,
-        waitConfirmations: waitBlockConfirmations,
+        waitConfirmations: 1,
     });
     log(`Token deployed at ${token.address}`);
-    // const tokenAddress = token.address;
-    // console.log(tokenAddress);
-    // Verify the deployment
+    const tokenAddress = token.address;
+    console.log(tokenAddress);
+
+    //Verify the deployment
     if (
         !developmentChains.includes(network.name) &&
         process.env.ETHERSCAN_API_KEY
@@ -34,11 +36,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
     log("Interact with token using command:");
     const networkName = network.name == "hardhat" ? "localhost" : network.name;
-    log(`yarn hardhat run scripts/token.js --network ${networkName}`);
+    log(`yarn hardhat run scripts/interact.js --network ${networkName}`);
     log("----------------------------------------------------");
 };
 
 module.exports.tags = ["all", "token"];
-// module.exports = {
-//     tokenAddress,
-// };
